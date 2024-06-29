@@ -3,12 +3,11 @@ import L from "leaflet";
 import "leaflet/dist/leaflet.css";
 
 const Map = ({ lat, lng, src }) => {
-
   const customMarkerIcon = L.icon({
-    iconUrl:  src, 
-    iconSize: [45, 45], 
-    iconAnchor: [25, 50], 
-    popupAnchor: [0, -32] 
+    iconUrl: src,
+    iconSize: [45, 45],
+    iconAnchor: [25, 50],
+    popupAnchor: [0, -32],
   });
 
   useEffect(() => {
@@ -17,11 +16,14 @@ const Map = ({ lat, lng, src }) => {
       zoom: 6,
       layers: [
         L.tileLayer(
-          "https://tiles.stadiamaps.com/tiles/outdoors/{z}/{x}/{y}{r}.png?api_key=3b3599e6-23af-49db-a472-72a888887948",
+          `https://tiles.stadiamaps.com/tiles/outdoors/{z}/{x}/{y}{r}.png?api_key=${
+            import.meta.env.VITE_APP_MAP_API_KEY
+          }`,
           {
-            attribution: '&copy; <a href="https://www.openstreetmap.org/copyright">OpenStreetMap</a> contributors',
-            minZoom:8,
-            maxZoom:50,
+            attribution:
+              '&copy; <a href="https://www.openstreetmap.org/copyright">OpenStreetMap</a> contributors',
+            minZoom: 8,
+            maxZoom: 50,
           }
         ),
       ],

@@ -44,7 +44,9 @@ const Main = () => {
     e.preventDefault();
     const options = {
       method: "GET",
-      url: `https://weather.visualcrossing.com/VisualCrossingWebServices/rest/services/timeline/${userInput}/?key=DRPEATA6ECA9VJXNZ442MLMWM&unitGroup=metric`,
+      url: `https://weather.visualcrossing.com/VisualCrossingWebServices/rest/services/timeline/${userInput}/?key=${
+        import.meta.env.VITE_APP_WEATHER_API_KEY
+      }&unitGroup=metric`,
     };
 
     axios
@@ -63,11 +65,11 @@ const Main = () => {
       });
   };
 
-const formatDate = (dateStr) => {
-  const date = new Date(dateStr);
-  const options = { weekday: 'long' };
-  return date.toLocaleDateString(undefined, options);
-};
+  const formatDate = (dateStr) => {
+    const date = new Date(dateStr);
+    const options = { weekday: "long" };
+    return date.toLocaleDateString(undefined, options);
+  };
 
   const date = new Date();
   const phaseEmoji = Moon.lunarPhaseEmoji();
@@ -142,7 +144,7 @@ const formatDate = (dateStr) => {
             </Row>
           )}
 
-          {apiData  && (
+          {apiData && (
             <Row>
               <Col className="mb-5" xs={12} md={6}>
                 <Row>
@@ -158,9 +160,10 @@ const formatDate = (dateStr) => {
                           src={locationIcon}
                           alt="location"
                         />
-                        
+
                         <h4>
-                          Lat: {apiData.latitude} <br /> Long: {apiData.longitude}
+                          Lat: {apiData.latitude} <br /> Long:{" "}
+                          {apiData.longitude}
                         </h4>
                       </div>
                     </Col>
@@ -187,7 +190,6 @@ const formatDate = (dateStr) => {
                           alt="location"
                         />
                         <h3>{apiData.resolvedAddress}</h3>
-                        
                       </div>
                     </Col>
                   </Row>
@@ -246,9 +248,7 @@ const formatDate = (dateStr) => {
                           src={humidityIcon}
                           alt="humidity"
                         />
-                        <h3>
-                          {apiData.currentConditions.humidity} %
-                        </h3>
+                        <h3>{apiData.currentConditions.humidity} %</h3>
                         <p>Humidity</p>
                       </div>
                     </Col>
@@ -259,9 +259,7 @@ const formatDate = (dateStr) => {
                           src={visibilityIcon}
                           alt="visibility"
                         />
-                        <h3>
-                          {apiData.currentConditions.visibility} km
-                        </h3>
+                        <h3>{apiData.currentConditions.visibility} km</h3>
                         <p>Visibility</p>
                       </div>
                     </Col>
@@ -272,9 +270,7 @@ const formatDate = (dateStr) => {
                           src={barometerIcon}
                           alt="pressure"
                         />
-                        <h3>
-                          {apiData.currentConditions.pressure} mb{" "}
-                        </h3>
+                        <h3>{apiData.currentConditions.pressure} mb </h3>
                         <p>Pressure</p>
                       </div>
                     </Col>
@@ -293,54 +289,59 @@ const formatDate = (dateStr) => {
                   </Col>
                 </Row>
                 <div className="scroll-container">
-  {apiData.days &&
-    apiData.days.slice(0, 13).map((item, index) => (
-      <Row
-        key={index}
-        className="m-2 p-3 glass-bg align-items-center"
-      >
-        <Col
-          xs={12}
-          className="d-flex justify-content-between align-items-center flex-wrap"
-        >
-          <span
-            className="mr-2 text-start"
-            style={{ fontSize: "medium" }}
-          >
-            {formatDate(item.datetime)}
-          </span>
-          <div className="d-flex align-items-center">
-            <img
-              className="weekly-icons mr-1"
-              src={maxIcon}
-              alt="max temp"
-            />
-            <span className="mr-2">{item.tempmax}°</span>
-          </div>
-          <div className="d-flex align-items-center">
-            <img
-              className="weekly-icons mr-1"
-              src={minIcon}
-              alt="min temp"
-            />
-            <span className="mr-2">{item.tempmin}°</span>
-          </div>
-        </Col>
-        <Col xs={12} className="d-flex justify-content-between align-items-center mt-2">
-          <img
-            height={35}
-            src={`https://raw.githubusercontent.com/visualcrossing/WeatherIcons/58c79610addf3d4d91471abbb95b05e96fb43019/SVG/3rd%20Set%20-%20Color/${apiData.currentConditions.icon}.svg`}
-            alt="weather icon"
-            className="mr-2"
-          />
-          <p className="mx-1 mt-3 text-center">{item.feelslike}°C</p>
-          <p className="mx-0 mt-3 text-center">{item.conditions}</p>
-        </Col>
-      </Row>
-    ))}
-</div>
-
-
+                  {apiData.days &&
+                    apiData.days.slice(0, 13).map((item, index) => (
+                      <Row
+                        key={index}
+                        className="m-2 p-3 glass-bg align-items-center"
+                      >
+                        <Col
+                          xs={12}
+                          className="d-flex justify-content-between align-items-center flex-wrap"
+                        >
+                          <span
+                            className="mr-2 text-start"
+                            style={{ fontSize: "medium" }}
+                          >
+                            {formatDate(item.datetime)}
+                          </span>
+                          <div className="d-flex align-items-center">
+                            <img
+                              className="weekly-icons mr-1"
+                              src={maxIcon}
+                              alt="max temp"
+                            />
+                            <span className="mr-2">{item.tempmax}°</span>
+                          </div>
+                          <div className="d-flex align-items-center">
+                            <img
+                              className="weekly-icons mr-1"
+                              src={minIcon}
+                              alt="min temp"
+                            />
+                            <span className="mr-2">{item.tempmin}°</span>
+                          </div>
+                        </Col>
+                        <Col
+                          xs={12}
+                          className="d-flex justify-content-between align-items-center mt-2"
+                        >
+                          <img
+                            height={35}
+                            src={`https://raw.githubusercontent.com/visualcrossing/WeatherIcons/58c79610addf3d4d91471abbb95b05e96fb43019/SVG/3rd%20Set%20-%20Color/${apiData.currentConditions.icon}.svg`}
+                            alt="weather icon"
+                            className="mr-2"
+                          />
+                          <p className="mx-1 mt-3 text-center">
+                            {item.feelslike}°C
+                          </p>
+                          <p className="mx-0 mt-3 text-center">
+                            {item.conditions}
+                          </p>
+                        </Col>
+                      </Row>
+                    ))}
+                </div>
               </Col>
               <Row>
                 <Col className="text-center my-5" xs={12} md={12}>
@@ -398,7 +399,12 @@ const formatDate = (dateStr) => {
                       <Row>
                         <span style={{ fontSize: 200 }}> {phaseEmoji}</span>
                         <p>Northern Hemisphere</p>
-                        <p>{(apiData.currentConditions.moonphase * 100).toFixed(2)}% Moon Is Illuminated From North.</p>
+                        <p>
+                          {(apiData.currentConditions.moonphase * 100).toFixed(
+                            2
+                          )}
+                          % Moon Is Illuminated From North.
+                        </p>
                       </Row>
                       <Row>
                         <span style={{ fontSize: 200 }}>
@@ -406,7 +412,12 @@ const formatDate = (dateStr) => {
                           {southernMoonPhase}
                         </span>
                         <p>Southern Hemisphere</p>
-                        <p>{(apiData.currentConditions.moonphase * 100).toFixed(2)}% Moon Is Illuminated From South.</p>
+                        <p>
+                          {(apiData.currentConditions.moonphase * 100).toFixed(
+                            2
+                          )}
+                          % Moon Is Illuminated From South.
+                        </p>
                       </Row>
                     </Col>
                   </Row>
