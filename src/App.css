@@ -1,0 +1,116 @@
+@font-face {
+  font-family: "FixelTitle";
+  src: url("./assets/fonts/FixelText-Black.otf") format("opentype");
+}
+
+@font-face {
+  font-family: "FixelText";
+  src: url("./assets/fonts/FixelText-Light.otf") format("opentype");
+}
+
+html {
+  font-size: 16px;
+  line-height: 1.5;
+  scroll-behavior: smooth;
+}
+
+body {
+  margin: 0;
+  color: #fff;
+  font-family: "FixelText";
+  overflow-y: auto; 
+  scrollbar-width: none !important;
+}
+
+.day-bg {
+  height: auto;
+  background-image: linear-gradient(
+    -225deg,
+    #5d9fff 0%,
+    #b8dcff 48%,
+    #6bbbff 100%
+  );
+  color: #282828;
+}
+
+.day-bg p {
+  color: rgba(40, 40, 40, 0.8);
+}
+
+
+
+.night-bg {
+  background: linear-gradient(to bottom, #0f2027, #203a43, #2c5364);
+  background-size: cover;
+  background-position: center;
+}
+
+.main-screen {
+  min-height: 100vh; 
+  padding-bottom: 50px; 
+}
+
+.transparent-bg {
+  background: transparent;
+  border-radius: 20px;
+  color: #fff !important;
+  font-size: x-large;
+  text-transform: uppercase;
+}
+
+.transparent-bg:focus {
+  background-color: transparent !important;
+}
+
+.transparent-bg::placeholder {
+  color: #fff !important;
+}
+
+p {
+  color: rgba(255, 255, 255, 0.8);
+  margin: 0;
+}
+
+.glass-bg {
+  background: rgba(255, 255, 255, 0.25);
+  backdrop-filter: blur(4px);
+  -webkit-backdrop-filter: blur(4px);
+  border-radius: 10px;
+}
+
+.row {
+  margin: auto;
+}
+
+.search-btn{
+  height: 75px;
+  cursor: pointer;
+  transition: transform 0.1s;
+}
+
+.search-btn:active{
+  transform: scale(0.7);
+}
+
+.weather-icons {
+  height: 80px;
+}
+
+.weekly-icons {
+  height: 54px;
+}
+
+#map{
+  height:700px;
+  width: 100%;
+}
+
+@media (max-width: 768px) {
+  .scroll-container {
+    max-height: 500px; 
+    overflow-y: auto;
+  }
+  #map{
+    height: 500px;
+  }
+}
